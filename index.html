@@ -5,20 +5,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap Number Spinner</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/prism/prism.css">
     
+    <script src="lib/prism/prism.js"></script>
     <script data-main="src/main" src="bower_components/requirejs/require.js"></script>
   </head>
   <body>
     <div class="container">
       <h1>Bootstrap Number Spinner</h1>
       
+      <p>
+      Mobile-friendly number spinner for Twitter Bootstrap.
+      </p>
+      
+      <h2>Options</h2>
+      <p>
+      All options can be set using <code>data-</code> attributes or passed as a JavaScript object.
+      </p>
+      <dl>
+        <dt>min</dt>
+        <dd>Minimum value</dd>
+      </dl>
+      <dl>
+        <dt>max</dt>
+        <dd>Maximum value</dd>
+      </dl>
+      <dl>
+        <dt>format</dt>
+        <dd>Formatting string used for displaying the value.
+          Bootstrap Number Spinner uses <a href="https://github.com/rse/sprintfjs">sprintf.js</a> for formatting.</dd>
+      </dl>
+      
+      <h2>Events</h2>
+      <dl>
+        <dt>change.bs.spinner</dt>
+        <dd>
+          Fired when the value of the spinner changes.
+          The plain numeric value is passed as second parameter to the event handler, see <a href="#example-change-event">example</a>.
+        </dd>
+      </dl>
+      
+      <h2>Setting / getting the value</h2>
+      <p>
+        The value can be get/set using the <code>val</code> function on the jQuery object:
+      </p>
+      <p>
+        <code class="language-javascript">var spinner = $('#spinner').bsSpinner({ format: '%d mm' });
+spinner.val(3);
+var value = spinner.val(); // 3
+</code>
+      </p>
+      
+      <h2>Examples</h2>
+      
       <h3>Integer</h3>
       <div class="row">
         <div class="col-sm-6">
           <form role="form">
             <div class="form-group">
-              <label for="font-size">Font size</label>
               <div class="input-group spinner">
                 <input type="text" name="font-size" class="form-control" value="12" data-format="%d pt" data-min="6" data-max="20">
                 <span class="input-group-btn">
@@ -30,6 +75,14 @@
           </form>
         </div>
         <div class="col-sm-6">
+          <code class="language-markup">&lt;div class="input-group spinner"&gt;
+  &lt;input type="text" name="font-size" class="form-control"
+    value="12" data-format="%d pt" data-min="6" data-max="20"&gt;
+  &lt;span class="input-group-btn"&gt;
+    &lt;button class="btn btn-default" type="button" data-incr="-1"&gt;–&lt;/button&gt;
+    &lt;button class="btn btn-default" type="button" data-incr="1"&gt;+&lt;/button&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code>
         </div>
       </div>
       
@@ -38,7 +91,6 @@
         <div class="col-sm-6">
           <form role="form">
             <div class="form-group">
-              <label for="font-size">1 CHF =</label>
               <div class="input-group spinner">
                 <input type="text" name="font-size" class="form-control" value="1.09" data-format="$ %.2f" data-min="0" data-max="2">
                 <span class="input-group-btn">
@@ -50,9 +102,75 @@
           </form>
         </div>
         <div class="col-sm-6">
+          <code class="language-markup">&lt;div class="input-group spinner"&gt;
+  &lt;input type="text" name="font-size" class="form-control"
+    value="1.09" data-format="$ %.2f" data-min="0" data-max="2"&gt;
+  &lt;span class="input-group-btn"&gt;
+    &lt;button class="btn btn-default" type="button" data-incr="-0.01"&gt;–&lt;/button&gt;
+    &lt;button class="btn btn-default" type="button" data-incr="0.01"&gt;+&lt;/button&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code>
         </div>
       </div>
       
+      <h3>Initialization via JavaScript</h3>
+      <div class="row">
+        <div class="col-sm-6">
+          <form role="form">
+            <div class="form-group">
+              <div class="input-group" id="options-demo-spinner">
+                <input type="text" name="font-size" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" data-incr="-1">–</button>
+                  <button class="btn btn-default" type="button" data-incr="1">+</button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-6">
+          <code class="language-javascript">$('#options-demo-spinner')
+  .bsSpinner({ min: 2, max: 5, format: '%d mm' })
+  .val(3);</code>
+        </div>
+      </div>
+
+      <section id="example-change-event">
+        <h3>Events</h3>
+        <div class="row">
+          <div class="col-sm-6">
+            <form role="form">
+              <div class="form-group">
+                <div class="input-group" id="event-demo-spinner">
+                  <input type="text" name="font-size" class="form-control" value="5" data-format="%d mm" data-min="0" data-max="20">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" data-incr="-1">–</button>
+                    <button class="btn btn-default" type="button" data-incr="1">+</button>
+                  </span>
+                </div>
+              </div>
+              <div>
+                Current value: <span class="output" id="event-demo-indicator">5</span> mm
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-6">
+            <code class="language-javascript">$('#event-demo-spinner').bsSpinner()
+  .on('change.bs.spinner', function(evt, value) {
+    $('#event-demo-indicator').html(value);
+  });</code>
+          </div>
+        </div>
+      </section>
+
+      <section id="license">
+        <h2>License</h2>
+        <p><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a></p>
+      </section>
+      
     </div>
+    
+    
+    
   </body>
 </html>

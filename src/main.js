@@ -14,4 +14,12 @@ require.config({
   }
 });
 
-require([ 'bootstrap-number-spinner' ]);
+require([ 'jquery', 'bootstrap-number-spinner' ], function($) {
+  
+  $('#options-demo-spinner').bsSpinner({ min: 2, max: 5, format: '%d mm' }).val(3);
+  
+  $('#event-demo-spinner').bsSpinner().on('change.bs.spinner', function(evt, value) {
+    $('#event-demo-indicator').html(value);
+  });
+  
+});
