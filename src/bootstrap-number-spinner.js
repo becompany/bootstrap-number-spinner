@@ -54,18 +54,18 @@ define([
       spinnerNode.value = sprintf(options.format, val);
     }
     
-    function changed() {
-      output();
+    function notify() {
       $spinner.trigger('change.bs.spinner', val);
     }
     
     function set(v) {
       val = limit(v);
-      changed();
+      output();
     }
     
     function read() {
-      set(limit(parse(spinnerNode.value, val)));
+      set(parse(spinnerNode.value, val));
+      notify();
     }
     
     _.each($('[data-incr]', $group), function(btn) {
@@ -74,6 +74,7 @@ define([
         incr = parseFloat($btn.data('incr'));
       $btn.click(function() {
         set(val + incr);
+        notify();
       });
     });
     
