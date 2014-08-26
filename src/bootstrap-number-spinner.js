@@ -59,14 +59,13 @@ define([
       $spinner.trigger('change.bs.spinner', val);
     }
     
-    function read() {
-      val = limit(parse(spinnerNode.value, val));
-      output();
-    }
-    
     function set(v) {
       val = limit(v);
       changed();
+    }
+    
+    function read() {
+      set(limit(parse(spinnerNode.value, val)));
     }
     
     _.each($('[data-incr]', $group), function(btn) {
