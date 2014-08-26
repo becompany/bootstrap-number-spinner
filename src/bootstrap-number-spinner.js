@@ -38,22 +38,20 @@ define([
     }, {});
   }
   
-  $.fn.bsSpinner = function(opts) {
+  function createSpinner(opts) {
     var
       $spinner = this,
-      $input = $('input', this),
-      options = _.merge(getOpts($input), opts || {}),
+      spinnerNode = this[0],
+      $group = $spinner.closest('.input-group'),
+      options = _.merge(getOpts($spinner), opts || {}),
       val = defaultValue;
-    
-    // Add class to support JS initialization of elements that are not automatically initialized
-    this.addClass('spinner');
     
     function limit(num) {
       return Math.min(Math.max(num, options.min), options.max);
     }
     
     function output() {
-      $input.val(sprintf(options.format, val));
+      spinnerNode.value = sprintf(options.format, val);
     }
     
     function changed() {
@@ -62,7 +60,7 @@ define([
     }
     
     function read() {
-      val = limit(parse($input.val(), val));
+      val = limit(parse(spinnerNode.value, val));
       output();
     }
     
@@ -71,7 +69,7 @@ define([
       changed();
     }
     
-    _.each($('[data-incr]', this), function(btn) {
+    _.each($('[data-incr]', $group), function(btn) {
       var
         $btn = $(btn),
         incr = parseFloat($btn.data('incr'));
@@ -80,11 +78,11 @@ define([
       });
     });
     
-    $input.focus(function() {
-      $input.val(val);
+    $spinner.focus(function() {
+      spinnerNode.value = val;
     });
     
-    $input.blur(read);
+    $spinner.blur(read);
     
     // initial formatting
     read();
@@ -97,13 +95,19 @@ define([
         set(v);
       }
     }
-    
+  }
+  
+  $.fn.bsSpinner = function(opts) {
+    var spinner = this.data('spinner');
+    if (spinner === undefined) {
+      spinner = createSpinner.apply(this, opts);
+      this.data('spinner', spinner);
+    }
     return this;
   }
   
   _.each($('.spinner'), function(node) {
     $(node).bsSpinner();
   });
-  
   
 });
