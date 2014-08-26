@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Number Spinner</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    
+    <script data-main="src/main" src="bower_components/requirejs/require.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Bootstrap Number Spinner</h1>
+      
+      <h3>Integer</h3>
+      <div class="row">
+        <div class="col-sm-6">
+          <form role="form">
+            <div class="form-group">
+              <label for="font-size">Font size</label>
+              <div class="input-group spinner">
+                <input type="text" name="font-size" class="form-control" value="12" data-format="%d pt" data-min="6" data-max="20">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" data-incr="-1">–</button>
+                  <button class="btn btn-default" type="button" data-incr="1">+</button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-6">
+        </div>
+      </div>
+      
+      <h3>Decimal</h3>
+      <div class="row">
+        <div class="col-sm-6">
+          <form role="form">
+            <div class="form-group">
+              <label for="font-size">1 CHF =</label>
+              <div class="input-group spinner">
+                <input type="text" name="font-size" class="form-control" value="1.09" data-format="$ %.2f" data-min="0" data-max="2">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" data-incr="-0.01">–</button>
+                  <button class="btn btn-default" type="button" data-incr="0.01">+</button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-6">
+        </div>
+      </div>
+      
+    </div>
+  </body>
+</html>
