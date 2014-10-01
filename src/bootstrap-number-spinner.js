@@ -78,11 +78,25 @@ define([
       });
     });
     
-    $spinner.focus(function() {
-      spinnerNode.value = val;
-    });
+    $spinner
     
-    $spinner.blur(read);
+      .focus(function() {
+        spinnerNode.value = val;
+      })
+      
+      // prevent form submission when enter is pressed
+      .keypress(function(e) {
+        var k = e.keyCode || e.which;
+        if (k === 13) {
+          read();
+          e.preventDefault();
+        }
+      })
+    
+      .change(function(evt) {
+        evt.stopPropagation();
+        read();
+      });
     
     // initial formatting
     read();
@@ -100,7 +114,7 @@ define([
   $.fn.bsSpinner = function(opts) {
     var spinner = this.data('spinner');
     if (spinner === undefined) {
-      spinner = createSpinner.apply(this, opts);
+      spinner = createSpinner.call(this, opts);
       this.data('spinner', spinner);
     }
     return this;
