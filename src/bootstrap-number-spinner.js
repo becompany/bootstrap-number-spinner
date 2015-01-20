@@ -95,6 +95,7 @@ define([
     
       .change(function(evt) {
         evt.stopPropagation();
+        evt.stopImmediatePropagation();
         read();
       });
     
