@@ -51,7 +51,7 @@ define([
     }
     
     function output() {
-      spinnerNode.value = sprintf(options.format, val);
+      spinnerNode.value = sprintf.sprintf(options.format, val);
     }
     
     function notify() {
