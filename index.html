@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap Number Spinner</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="lib/prism/prism.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/prismjs/themes/prism.css">
     
-    <script src="lib/prism/prism.js"></script>
-    <script data-main="src/main" src="bower_components/requirejs/require.js"></script>
+    <script src="node_modules/prismjs/prism.js"></script>
+    <script src="demo/demo.bundle.js"></script>
   </head>
   <body>
     <div class="container">
@@ -21,7 +21,7 @@
       
       <h2>Options</h2>
       <p>
-      All options can be set using <code>data-</code> attributes or passed as a JavaScript object.
+      All options can be set using <code>data-</code> attributes or passed as a TypeScript object.
       </p>
       <dl>
         <dt>min</dt>
@@ -34,7 +34,7 @@
       <dl>
         <dt>format</dt>
         <dd>Formatting string used for displaying the value.
-          Bootstrap Number Spinner uses <a href="https://github.com/rse/sprintfjs">sprintf.js</a> for formatting.</dd>
+          Bootstrap Number Spinner uses <a href="https://github.com/alexei/sprintf.js">sprintf.js</a> for formatting.</dd>
       </dl>
       
       <h2>Events</h2>
@@ -51,10 +51,13 @@
         The value can be get/set using the <code>val</code> function on the jQuery object:
       </p>
       <p>
-        <code class="language-javascript">var spinner = $('#spinner').bsSpinner({ format: '%d mm' });
-spinner.val(3);
-var value = spinner.val(); // 3
-</code>
+        <pre><code class="language-typescript">import { BootstrapNumberSpinner } from 'bootstrap-number-spinner';
+
+const node = <HTMLInputElement> document.querySelector('#spinner');
+if (node) {
+  const spinner = new BootstrapNumberSpinner(node, { format: '%d mm' });
+  spinner.value = 3;
+}</code></pre>
       </p>
       
       <h2>Examples</h2>
@@ -75,14 +78,14 @@ var value = spinner.val(); // 3
           </form>
         </div>
         <div class="col-sm-6">
-          <code class="language-markup">&lt;div class="input-group"&gt;
+          <pre><code class="language-markup">&lt;div class="input-group"&gt;
   &lt;input type="text" name="font-size" class="form-control spinner"
     value="12" data-format="%d pt" data-min="6" data-max="20"&gt;
   &lt;span class="input-group-btn"&gt;
     &lt;button class="btn btn-default" type="button" data-incr="-1"&gt;–&lt;/button&gt;
     &lt;button class="btn btn-default" type="button" data-incr="1"&gt;+&lt;/button&gt;
   &lt;/span&gt;
-&lt;/div&gt;</code>
+&lt;/div&gt;</code></pre>
         </div>
       </div>
       
@@ -102,14 +105,14 @@ var value = spinner.val(); // 3
           </form>
         </div>
         <div class="col-sm-6">
-          <code class="language-markup">&lt;div class="input-group"&gt;
+          <pre><code class="language-markup">&lt;div class="input-group"&gt;
   &lt;input type="text" name="font-size" class="form-control spinner"
     value="1.09" data-format="$ %.2f" data-min="0" data-max="2"&gt;
   &lt;span class="input-group-btn"&gt;
     &lt;button class="btn btn-default" type="button" data-incr="-0.01"&gt;–&lt;/button&gt;
     &lt;button class="btn btn-default" type="button" data-incr="0.01"&gt;+&lt;/button&gt;
   &lt;/span&gt;
-&lt;/div&gt;</code>
+&lt;/div&gt;</code></pre>
         </div>
       </div>
       
@@ -129,9 +132,12 @@ var value = spinner.val(); // 3
           </form>
         </div>
         <div class="col-sm-6">
-          <code class="language-javascript">$('#options-demo-spinner')
-  .bsSpinner({ min: 2, max: 5, format: '%d mm' })
-  .val(3);</code>
+          <pre><code class="language-typescript">const optionsDemoNode = <HTMLInputElement> document.querySelector('#options-demo-spinner');
+if (optionsDemoNode) {
+  const optionsDemoSpinner = new BootstrapNumberSpinner(
+      optionsDemoNode, { min: 2, max: 5, format: '%d mm' });
+  optionsDemoSpinner.value = 3;
+}</code></pre>
         </div>
       </div>
 
@@ -156,10 +162,15 @@ var value = spinner.val(); // 3
             </form>
           </div>
           <div class="col-sm-6">
-            <code class="language-javascript">$('#event-demo-spinner').bsSpinner()
-  .on('change.bs.spinner', function(evt, value) {
-    $('#event-demo-indicator').html(value);
-  });</code>
+            <pre><code class="language-typescript">const eventDemoNode = <HTMLInputElement>document.querySelector('#event-demo-spinner');
+const eventDemoIndicator = document.querySelector('#event-demo-indicator');
+
+if (eventDemoNode && eventDemoIndicator) {
+  const eventDemoSpinner = new BootstrapNumberSpinner(eventDemoNode);
+  eventDemoNode.addEventListener('change.bs.spinner', evt => {
+    eventDemoIndicator.innerHTML = eventDemoSpinner.value.toString();
+  })
+}</code></pre>
           </div>
         </div>
       </section>
@@ -170,8 +181,6 @@ var value = spinner.val(); // 3
       </section>
       
     </div>
-    
-    
     
   </body>
 </html>
