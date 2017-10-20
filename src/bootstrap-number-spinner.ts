@@ -120,24 +120,8 @@ export class BootstrapNumberSpinner {
   }
 
   private read() {
-    console.log("reading " + parseNumber(this._inputElement.value));
     this.value = parseNumber(this._inputElement.value).getOrElseValue(this._value);
     this.notify();
   }
 
 }
-
-/*
-  $.fn.bsSpinner = function(opts) {
-    var spinner = this.data('spinner');
-    if (spinner === undefined) {
-      spinner = createSpinner.call(this, opts);
-      this.data('spinner', spinner);
-    }
-    return this;
-  };
-
-  _.each($('.spinner'), function(node) {
-    $(node).bsSpinner();
-  });
-*/

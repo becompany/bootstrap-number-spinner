@@ -18,8 +18,11 @@
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.43",
     "awesome-typescript-loader": "^3.2.3",
+    "bootstrap": "^3.3.7",
     "chai": "^4.1.2",
     "mocha": "^4.0.1",
+    "prism-loader": "^0.1.1",
+    "prismjs": "^1.8.1",
     "source-map-loader": "^0.2.2",
     "ts-node": "^3.3.0",
     "typescript": "^2.5.3",
@@ -29,14 +32,12 @@
   "dependencies": {
     "@types/jquery": "^3.2.15",
     "@types/sprintf-js": "^1.1.0",
-    "bootstrap": "^3.3.7",
     "fp-ts": "^0.5.4",
     "jquery": "^3.2.1",
-    "prism-loader": "^0.1.1",
-    "prismjs": "^1.8.1",
     "sprintf-js": "^1.1.1"
   },
   "scripts": {
+    "clean": "rm -r demo dist",
     "build": "tsc; webpack -p",
     "test": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.ts'",
     "server": "webpack-dev-server"
